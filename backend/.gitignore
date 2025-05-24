@@ -1,0 +1,8 @@
+# Essential .gitignore for Node.js backend
+node_modules/
+.env
+*.log
+.DS_Store
+.vscode/
+dist/
+build/

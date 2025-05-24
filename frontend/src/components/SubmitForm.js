@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { auth } from "../firebase";
+import config from "../config";
 
 export default function SubmitForm({ onSubmit }) {
   const [form, setForm] = useState({
@@ -39,7 +40,7 @@ export default function SubmitForm({ onSubmit }) {
         displayName: user?.displayName,
       },
     };
-    await axios.post("http://localhost:5000/api/questions", payload);
+    await axios.post(`${config.API_BASE_URL}/api/questions`, payload);
     setForm({
       company: "",
       role: "",

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import config from "../config";
 
 export default function QuestionCard({ question, onVote, user }) {
   const handleVote = async (type) => {
@@ -9,7 +10,7 @@ export default function QuestionCard({ question, onVote, user }) {
       return;
     }
     await axios.post(
-      `http://localhost:5000/api/questions/${question._id}/${type}`
+      `${config.API_BASE_URL}/api/questions/${question._id}/${type}`
     );
     onVote();
   };

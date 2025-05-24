@@ -15,6 +15,15 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
+// Health check endpoint
+app.get("/", (req, res) => {
+  res.json({ message: "InterviewDB API is running!", status: "OK" });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ status: "OK", timestamp: new Date().toISOString() });
+});
+
 app.use("/api/questions", require("./routes/questions"));
 
 const PORT = process.env.PORT || 5000;

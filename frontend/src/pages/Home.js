@@ -3,6 +3,7 @@ import axios from "axios";
 import QuestionCard from "../components/QuestionCard";
 import SubmitForm from "../components/SubmitForm";
 import FilterBar from "../components/FilterBar";
+import config from "../config";
 
 export default function Home({ user }) {
   const [questions, setQuestions] = useState([]);
@@ -14,7 +15,7 @@ export default function Home({ user }) {
   });
 
   const fetchQuestions = async () => {
-    let url = "http://localhost:5000/api/questions?";
+    let url = `${config.API_BASE_URL}/api/questions?`;
     if (filters.company) url += `company=${filters.company}&`;
     if (filters.search) url += `search=${filters.search}&`;
     if (filters.sort) url += `sort=${filters.sort === "votes" ? "votes" : ""}&`;

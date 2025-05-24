@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import QuestionCard from "../components/QuestionCard";
+import config from "../config";
 
 export default function CompanyPage({ user }) {
   const { company } = useParams();
@@ -9,7 +10,7 @@ export default function CompanyPage({ user }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/questions?company=${company}`)
+      .get(`${config.API_BASE_URL}/api/questions?company=${company}`)
       .then((res) => setQuestions(res.data));
   }, [company]);
 
@@ -23,7 +24,7 @@ export default function CompanyPage({ user }) {
             question={q}
             onVote={() => {
               axios
-                .get(`http://localhost:5000/api/questions?company=${company}`)
+                .get(`${config.API_BASE_URL}/api/questions?company=${company}`)
                 .then((res) => setQuestions(res.data));
             }}
             user={user}

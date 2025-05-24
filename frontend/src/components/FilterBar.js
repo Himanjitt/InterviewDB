@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import config from "../config";
 
 export default function FilterBar({ filters, setFilters }) {
   const [companies, setCompanies] = useState([]);
   const [tagInput, setTagInput] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/questions").then((res) => {
+    axios.get(`${config.API_BASE_URL}/api/questions`).then((res) => {
       const uniqueCompanies = [...new Set(res.data.map((q) => q.company))];
       setCompanies(uniqueCompanies);
     });
