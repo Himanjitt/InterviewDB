@@ -14,11 +14,11 @@ export default function FilterBar({ filters, setFilters }) {
   }, []);
 
   return (
-    <div className="flex flex-wrap gap-2 items-center mb-4">
+    <div className="flex flex-wrap gap-3 items-center mb-6">
       <select
         value={filters.company}
         onChange={(e) => setFilters((f) => ({ ...f, company: e.target.value }))}
-        className="border-2 border-black p-2 rounded"
+        className="select select-bordered select-sm"
       >
         <option value="">All Companies</option>
         {companies.map((c) => (
@@ -27,31 +27,35 @@ export default function FilterBar({ filters, setFilters }) {
           </option>
         ))}
       </select>
+
       <input
         type="text"
         placeholder="Search..."
         value={filters.search}
         onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
-        className="border-2 border-black p-2 rounded"
+        className="input input-bordered input-sm"
       />
+
       <select
         value={filters.sort}
         onChange={(e) => setFilters((f) => ({ ...f, sort: e.target.value }))}
-        className="border-2 border-black p-2 rounded"
+        className="select select-bordered select-sm"
       >
         <option value="date">Newest</option>
         <option value="votes">Most Upvoted</option>
       </select>
+
       <input
         type="text"
         placeholder="Tag"
         value={tagInput}
         onChange={(e) => setTagInput(e.target.value)}
-        className="border-2 border-black p-2 rounded"
+        className="input input-bordered input-sm"
       />
+
       <button
         onClick={() => setFilters((f) => ({ ...f, tag: tagInput }))}
-        className="bg-gray-200 px-2 py-1 rounded"
+        className="btn btn-sm btn-neutral"
       >
         Filter by Tag
       </button>

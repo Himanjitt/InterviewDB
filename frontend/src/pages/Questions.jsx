@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import QuestionCard from "../components/QuestionCard";
-import SubmitForm from "../components/SubmitForm";
 import FilterBar from "../components/FilterBar";
 import config from "../config";
 
-export default function Home({ user }) {
+export default function Questions({ user }) {
   const [questions, setQuestions] = useState([]);
   const [filters, setFilters] = useState({
     company: "",
@@ -30,9 +29,8 @@ export default function Home({ user }) {
 
   return (
     <div className="max-w-3xl mx-auto p-4">
-      <SubmitForm onSubmit={fetchQuestions} />
       <FilterBar filters={filters} setFilters={setFilters} />
-      <div className="mt-4 grid gap-4">
+      <div className="mt-6 grid gap-6">
         {questions.map((q) => (
           <QuestionCard
             key={q._id}
