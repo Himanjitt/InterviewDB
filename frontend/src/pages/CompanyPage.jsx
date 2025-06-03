@@ -23,7 +23,12 @@ export default function CompanyPage({ user }) {
       <h2 className="text-2xl font-bold mb-6">{company} Interview Questions</h2>
       <div className="grid gap-6">
         {questions.map((q) => (
-          <QuestionCard key={q._id} question={q} onVote={fetchQuestions} user={user} />
+          <QuestionCard
+            key={q._id}
+            question={q}
+            onVote={fetchQuestions}
+            user={user}
+          />
         ))}
       </div>
     </div>
