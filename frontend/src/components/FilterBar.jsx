@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import config from "../config";
 
-export default function FilterBar({ filters, setFilters }) {
-  const [companies, setCompanies] = useState([]);
+export default function FilterBar({ filters, setFilters, companies = [] }) {
   const [tagInput, setTagInput] = useState("");
+  const [searchInput, setSearchInput] = useState(filters.search);
 
+  // Debounce search input to avoid too many API calls
   useEffect(() => {
-    axios.get(`${config.API_BASE_URL}/api/questions`).then((res) => {
-      const uniqueCompanies = [...new Set(res.data.map((q) => q.company))];
-      setCompanies(uniqueCompanies);
-    });
-  }, []);
+    const delayedSearch = setTimeout(() => {
+      setFilters((f) => ({ ...f, search: searchInput }));
+    }, 300);
+
+    return () => clearTimeout(delayedSearch);
+  }, [searchInput, setFilters]);
+
+  // Sync search input with filters
+  useEffect(() => {
+    setSearchInput(filters.search);
+  }, [filters.search]);
 
   return (
     <div className="flex flex-wrap gap-3 items-center mb-6">
@@ -31,8 +36,8 @@ export default function FilterBar({ filters, setFilters }) {
       <input
         type="text"
         placeholder="Search..."
-        value={filters.search}
-        onChange={(e) => setFilters((f) => ({ ...f, search: e.target.value }))}
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
         className="input input-bordered input-sm"
       />
 
@@ -50,6 +55,11 @@ export default function FilterBar({ filters, setFilters }) {
         placeholder="Tag"
         value={tagInput}
         onChange={(e) => setTagInput(e.target.value)}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            setFilters((f) => ({ ...f, tag: tagInput }));
+          }
+        }}
         className="input input-bordered input-sm"
       />
 
